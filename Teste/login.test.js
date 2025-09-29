@@ -1,7 +1,7 @@
 const request = require('supertest');
 const {expect} = require('chai')
 require('dotenv').config()
-
+const postLogin = require('../fixtures/postLogin.json')
 
 describe('Login', function(){
     //No lugar de function(){} poderia ser usado uma aerofunction ()=>{}
@@ -11,13 +11,12 @@ describe('Login', function(){
             //const resposta = await request('http://localhost:3000')
             //será substituida pela linha abaixo, colocando no lugar da url,
             //a variavel do env (process.env.BASE_URL)
+            const bodyLogin = {...postLogin}
+
             const resposta = await request(process.env.BASE_URL)
                 .post('/login')
                 .set('Content-type', 'application/json')
-                .send({
-                    'username': 'julio.lima',
-                    'senha': '123456'
-                 })  
+                .send(bodyLogin)  
             
             console.log(resposta.status)
             console.log(resposta.body)
